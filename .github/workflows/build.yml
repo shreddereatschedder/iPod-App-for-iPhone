@@ -33,7 +33,11 @@ jobs:
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO 2>&1 | grep -A 3 "error:"
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee build.log | grep -A 3 "error:" || true
+
+      - name: Show errors if failed
+        if: failure()
+        run: grep -A 3 "error:" build.log || cat build.log | tail -50
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
