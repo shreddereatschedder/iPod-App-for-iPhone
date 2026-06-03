@@ -7,14 +7,11 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Select Xcode 15.4
-        run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
       - name: Check Xcode version
         run: xcodebuild -version
@@ -22,17 +19,8 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
-      - name: Check XcodeGen version
-        run: xcodegen --version
-
       - name: Generate Xcode project
         run: xcodegen generate --spec project.yml
-
-      - name: Print objectVersion
-        run: grep "objectVersion" iPodApp.xcodeproj/project.pbxproj
-
-      - name: Print archiveVersion
-        run: grep "archiveVersion" iPodApp.xcodeproj/project.pbxproj
 
       - name: Resolve Swift packages
         run: xcodebuild -resolvePackageDependencies -project iPodApp.xcodeproj -scheme iPodApp
