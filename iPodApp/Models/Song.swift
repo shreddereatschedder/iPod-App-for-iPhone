@@ -1,17 +1,44 @@
 import Foundation
+import SwiftData
 
-public struct Song: Identifiable, Codable {
-    public let id: UUID
-    public var title: String
-    public var artist: String?
-    public var duration: TimeInterval?
-    public var url: URL?
+@Model
+class Song {
+    var id: UUID
+    var title: String
+    var artist: String
+    var album: String
+    var duration: Double
+    var thumbnailURL: String
+    var youtubeURL: String
+    var isFavourite: Bool
+    var dateAdded: Date
+    var fileName: String
 
-    public init(id: UUID = UUID(), title: String, artist: String? = nil, duration: TimeInterval? = nil, url: URL? = nil) {
-        self.id = id
+    init(
+        title: String,
+        artist: String,
+        album: String = "Unknown Album",
+        duration: Double = 0,
+        thumbnailURL: String = "",
+        youtubeURL: String = "",
+        fileName: String
+    ) {
+        self.id = UUID()
         self.title = title
         self.artist = artist
+        self.album = album
         self.duration = duration
-        self.url = url
+        self.thumbnailURL = thumbnailURL
+        self.youtubeURL = youtubeURL
+        self.isFavourite = false
+        self.dateAdded = Date()
+        self.fileName = fileName
+    }
+
+    var fileURL: URL? {
+        FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first?
+            .appendingPathComponent(fileName)
     }
 }
