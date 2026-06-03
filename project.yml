@@ -1,0 +1,27 @@
+name: iPodApp
+options:
+  bundleIdPrefix: com.personal
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+
+packages:
+  YouTubeKit:
+    url: https://github.com/b5i/YouTubeKit
+    majorVersion: 1
+
+targets:
+  iPodApp:
+    type: application
+    platform: iOS
+    sources:
+      - iPodApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personal.iPodApp
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: 5.9
+        INFOPLIST_FILE: iPodApp/Info.plist
+    dependencies:
+      - package: YouTubeKit

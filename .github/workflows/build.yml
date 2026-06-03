@@ -1,0 +1,40 @@
+name: Build iPodApp
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Resolve Swift packages
+        run: xcodebuild -resolvePackageDependencies -project iPodApp.xcodeproj -scheme iPodApp
+
+      - name: Build app
+        run: |
+          xcodebuild \
+            -project iPodApp.xcodeproj \
+            -scheme iPodApp \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: iPodApp-build
+          path: build/Build/Products/Debug-iphonesimulator/iPodApp.app
+          retention-days: 7
