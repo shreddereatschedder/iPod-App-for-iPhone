@@ -1,13 +1,17 @@
 import Foundation
+import SwiftData
 
-public struct Playlist: Identifiable, Codable {
-    public let id: UUID
-    public var name: String
-    public var songs: [Song]
+@Model
+class Playlist {
+    var id: UUID
+    var name: String
+    var dateCreated: Date
+    @Relationship var songs: [Song]
 
-    public init(id: UUID = UUID(), name: String, songs: [Song] = []) {
-        self.id = id
+    init(name: String) {
+        self.id = UUID()
         self.name = name
-        self.songs = songs
+        self.dateCreated = Date()
+        self.songs = []
     }
 }
