@@ -16,11 +16,16 @@ jobs:
       - name: Select Xcode 15.4
         run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
-      - name: Install XcodeGen
-        run: brew install xcodegen
+      - name: Install XcodeGen 2.38.0
+        run: |
+          brew unlink xcodegen 2>/dev/null || true
+          brew install xcodegen@2.38.0 2>/dev/null || brew install xcodegen
 
       - name: Generate Xcode project
-        run: xcodegen generate
+        run: xcodegen generate --spec project.yml
+
+      - name: Check generated project format
+        run: grep "objectVersion" iPodApp.xcodeproj/project.pbxproj | head -3
 
       - name: Resolve Swift packages
         run: xcodebuild -resolvePackageDependencies -project iPodApp.xcodeproj -scheme iPodApp

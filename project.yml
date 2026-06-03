@@ -4,6 +4,8 @@ options:
   deploymentTarget:
     iOS: "16.0"
   xcodeVersion: "15.4"
+  generateEmptyDirectories: true
+  objectVersion: "56"
 
 packages:
   YouTubeKit:
