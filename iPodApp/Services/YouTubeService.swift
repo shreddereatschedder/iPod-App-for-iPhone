@@ -1,10 +1,9 @@
 import Foundation
 
-public class YouTubeService {
-    public init() {}
+class YouTubeService {
+    init() {}
 
-    public func search(query: String, completion: @escaping ([Song]) -> Void) {
-        // TODO: Implement YouTube search
+    func search(query: String, completion: @escaping ([Song]) -> Void) {
         completion([])
     }
 }
