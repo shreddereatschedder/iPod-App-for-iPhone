@@ -8,7 +8,7 @@ options:
 packages:
   YouTubeKit:
     url: https://github.com/b5i/YouTubeKit
-    majorVersion: 1
+    from: "1.0.0"
 
 targets:
   iPodApp:
